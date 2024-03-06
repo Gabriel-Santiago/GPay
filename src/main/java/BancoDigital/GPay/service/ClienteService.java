@@ -90,6 +90,7 @@ public class ClienteService {
 
         if(cliente != null){
             cliente.setCpf(entity.getCpf());
+            validarCpf(cliente.getCpf());
             clienteRepository.save(cliente);
         }else {
             throw new ClienteInvalidoException("Cliente com CPF " + cpf + " não encontrado");
@@ -101,6 +102,7 @@ public class ClienteService {
 
         if(cliente != null){
             cliente.setEmail(entity.getEmail());
+            validarEmail(cliente.getEmail());
             clienteRepository.save(cliente);
         }else {
             throw new ClienteInvalidoException("Cliente com Email " + email + " não encontrado");
