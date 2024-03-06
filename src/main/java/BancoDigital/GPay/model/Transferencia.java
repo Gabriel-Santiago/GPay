@@ -11,8 +11,8 @@ import java.math.BigDecimal;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Transferencia {
-    private long remetente;
-    private long destinatario;
+    private Cliente remetente;
+    private Lojista destinatario;
     private BigDecimal valor;
 
     public Transferencia(TransferenciaDTO transferenciaDTO){
