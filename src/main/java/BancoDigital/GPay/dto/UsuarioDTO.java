@@ -2,6 +2,8 @@ package BancoDigital.GPay.dto;
 
 import jakarta.validation.constraints.NotBlank;
 
+import java.math.BigDecimal;
+
 public record UsuarioDTO(
         @NotBlank
         String nome,
@@ -12,6 +14,8 @@ public record UsuarioDTO(
         @NotBlank
         long cpf,
         @NotBlank
-        long cnpj
+        long cnpj,
+        @NotBlank
+        BigDecimal saldo
 ) {
 }

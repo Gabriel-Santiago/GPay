@@ -18,5 +18,6 @@ public class Cliente extends Usuario{
         this.email = usuarioDTO.email();
         this.senha = usuarioDTO.senha();
         this.cpf = usuarioDTO.cpf();
+        this.saldo = usuarioDTO.saldo();
     }
 }

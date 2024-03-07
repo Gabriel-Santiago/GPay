@@ -18,5 +18,6 @@ public class Lojista extends Usuario{
         this.email = usuarioDTO.email();
         this.senha = usuarioDTO.senha();
         this.cnpj = usuarioDTO.cnpj();
+        this.saldo = usuarioDTO.saldo();
     }
 }
