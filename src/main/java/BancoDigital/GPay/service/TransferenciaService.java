@@ -1,7 +1,5 @@
 package BancoDigital.GPay.service;
 
-import BancoDigital.GPay.model.Cliente;
-import BancoDigital.GPay.repository.LojistaRepository;
 import BancoDigital.GPay.repository.TransferenciaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

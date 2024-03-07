@@ -1,52 +1,36 @@
 package BancoDigital.GPay.service;
 
-import BancoDigital.GPay.exception.ClienteInvalidoException;
+import BancoDigital.GPay.exception.CpfInvalidoException;
 import BancoDigital.GPay.exception.EmailInvalidoException;
 import BancoDigital.GPay.model.Cliente;
 import BancoDigital.GPay.repository.ClienteRepository;
+import BancoDigital.GPay.validacoes.ValidarCpf;
+import BancoDigital.GPay.validacoes.ValidarEmail;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 @Service
 public class ClienteService {
 
     ClienteRepository clienteRepository;
 
-    void salvarPeloCpf(Cliente entity, long cpf){
-        validarCpf(cpf);
-        clienteRepository.save(entity);
-    }
+    ValidarCpf validarCpf = new ValidarCpf();
+    ValidarEmail validarEmail = new ValidarEmail();
 
-    private void validarCpf(long value){
-        String newValue = String.valueOf(value);
-        if(newValue.length() != 9){
-            throw new IllegalArgumentException("O CPF deve ter 9 dígitos.");
-        }
+    void salvarPeloCpf(Cliente entity, long cpf){
+        validarCpf.validacaoCpf(cpf);
+        clienteRepository.save(entity);
     }
 
     void salvarPeloEmail(Cliente entity, String email){
-        validarEmail(email);
+        validarEmail.validacaoEmail(email);
         clienteRepository.save(entity);
     }
 
-    private static final String REGEX_EMAIL =
-            "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$";
-
-    private void validarEmail(String email) throws EmailInvalidoException {
-        Pattern pattern = Pattern.compile(REGEX_EMAIL);
-        Matcher matcher = pattern.matcher(email);
-
-        if(!matcher.matches()){
-            throw new EmailInvalidoException("Email inválido!");
-        }
-    }
-
     Cliente findByCpf(long cpf){
-        validarCpf(cpf);
+        validarCpf.validacaoCpf(cpf);
 
         Optional<Cliente> cliente = clienteRepository.findByCpf(cpf);
 
@@ -54,7 +38,7 @@ public class ClienteService {
     }
 
     Cliente findByEmail(String email){
-        validarEmail(email);
+        validarEmail.validacaoEmail(email);
 
         Optional<Cliente> cliente = clienteRepository.findByEmail(email);
 
@@ -71,7 +55,7 @@ public class ClienteService {
         if(cliente != null){
             clienteRepository.delete(cliente);
         } else {
-            throw new ClienteInvalidoException("Cliente com CPF " + cpf + " não encontrado");
+            throw new CpfInvalidoException("Cliente com CPF " + cpf + " não encontrado");
         }
     }
 
@@ -81,7 +65,7 @@ public class ClienteService {
         if(cliente != null){
             clienteRepository.delete(cliente);
         }else {
-            throw new ClienteInvalidoException("Cliente com Email " + email + " não encontrado");
+            throw new EmailInvalidoException("Cliente com Email " + email + " não encontrado");
         }
     }
 
@@ -90,10 +74,10 @@ public class ClienteService {
 
         if(cliente != null){
             cliente.setCpf(entity.getCpf());
-            validarCpf(cliente.getCpf());
+            validarCpf.validacaoCpf(cliente.getCpf());
             clienteRepository.save(cliente);
         }else {
-            throw new ClienteInvalidoException("Cliente com CPF " + cpf + " não encontrado");
+            throw new CpfInvalidoException("Cliente com CPF " + cpf + " não encontrado");
         }
     }
 
@@ -102,10 +86,10 @@ public class ClienteService {
 
         if(cliente != null){
             cliente.setEmail(entity.getEmail());
-            validarEmail(cliente.getEmail());
+            validarEmail.validacaoEmail(cliente.getEmail());
             clienteRepository.save(cliente);
         }else {
-            throw new ClienteInvalidoException("Cliente com Email " + email + " não encontrado");
+            throw new EmailInvalidoException("Cliente com Email " + email + " não encontrado");
         }
     }
 
