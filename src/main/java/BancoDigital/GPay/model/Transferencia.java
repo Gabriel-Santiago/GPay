@@ -11,11 +11,13 @@ import java.math.BigDecimal;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Transferencia {
+    private int id;
     private String remetente;
     private String destinatario;
     private BigDecimal valor;
 
     public Transferencia(TransferenciaDTO transferenciaDTO){
+        this.id = transferenciaDTO.id();
         this.remetente = transferenciaDTO.remetente();
         this.destinatario = transferenciaDTO.destinatario();
         this.valor = transferenciaDTO.valor();
