@@ -19,17 +19,17 @@ public class ClienteService {
     ValidarCpf validarCpf = new ValidarCpf();
     ValidarEmail validarEmail = new ValidarEmail();
 
-    void salvarPeloCpf(Cliente entity, long cpf){
+    public void salvarPeloCpf(Cliente entity, long cpf){
         validarCpf.validacaoCpf(cpf);
         clienteRepository.save(entity);
     }
 
-    void salvarPeloEmail(Cliente entity, String email){
+    public void salvarPeloEmail(Cliente entity, String email){
         validarEmail.validacaoEmail(email);
         clienteRepository.save(entity);
     }
 
-    Cliente findByCpf(long cpf){
+    public Cliente findByCpf(long cpf){
         validarCpf.validacaoCpf(cpf);
 
         Optional<Cliente> cliente = clienteRepository.findByCpf(cpf);
@@ -37,7 +37,7 @@ public class ClienteService {
         return cliente.orElse(null);
     }
 
-    Cliente findByEmail(String email){
+    public Cliente findByEmail(String email){
         validarEmail.validacaoEmail(email);
 
         Optional<Cliente> cliente = clienteRepository.findByEmail(email);
@@ -45,11 +45,11 @@ public class ClienteService {
         return cliente.orElse(null);
     }
 
-    List<Cliente> findAll(){
+    public List<Cliente> findAll(){
         return clienteRepository.findAll();
     }
 
-    void deleteByCpf(long cpf){
+    public void deleteByCpf(long cpf){
         Cliente cliente = findByCpf(cpf);
 
         if(cliente != null){
@@ -59,7 +59,7 @@ public class ClienteService {
         }
     }
 
-    void deleteByEmail(String email){
+    public void deleteByEmail(String email){
         Cliente cliente = findByEmail(email);
 
         if(cliente != null){
@@ -69,7 +69,7 @@ public class ClienteService {
         }
     }
 
-    void uptadeByCpf(Cliente entity, long cpf){
+    public void uptadeByCpf(Cliente entity, long cpf){
         Cliente cliente = findByCpf(cpf);
 
         if(cliente != null){
@@ -81,7 +81,7 @@ public class ClienteService {
         }
     }
 
-    void updateByEmail(Cliente entity, String email){
+    public void updateByEmail(Cliente entity, String email){
         Cliente cliente = findByEmail(email);
 
         if(cliente != null){
@@ -93,7 +93,7 @@ public class ClienteService {
         }
     }
 
-    List<Cliente> findByNome(String nome){
+    public List<Cliente> findByNome(String nome){
         return clienteRepository.findByNome(nome);
     }
 }
