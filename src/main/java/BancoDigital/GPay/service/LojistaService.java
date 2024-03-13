@@ -19,17 +19,17 @@ public class LojistaService {
     ValidarCnpj validarCnpj = new ValidarCnpj();
     ValidarEmail validarEmail = new ValidarEmail();
 
-    void salvarPeloCnpj(Lojista entity, long cnpj){
+    public void salvarPeloCnpj(Lojista entity, long cnpj){
         validarCnpj.validacaoCnpj(cnpj);
         lojistaRepository.save(entity);
     }
 
-    void salvarPeloEmail(Lojista entity, String email){
+    public void salvarPeloEmail(Lojista entity, String email){
         validarEmail.validacaoEmail(email);
         lojistaRepository.save(entity);
     }
 
-    Lojista findByCnpj(long cnpj){
+    public Lojista findByCnpj(long cnpj){
         validarCnpj.validacaoCnpj(cnpj);
 
         Optional<Lojista> lojista = lojistaRepository.findByCnpj(cnpj);
@@ -37,7 +37,7 @@ public class LojistaService {
         return lojista.orElse(null);
     }
 
-    Lojista findByEmail(String email){
+    public Lojista findByEmail(String email){
         validarEmail.validacaoEmail(email);
 
         Optional<Lojista> lojista = lojistaRepository.findByEmail(email);
@@ -45,11 +45,11 @@ public class LojistaService {
         return lojista.orElse(null);
     }
 
-    List<Lojista> findAll(){
+    public List<Lojista> findAll(){
         return lojistaRepository.findAll();
     }
 
-    void deleteByCnpj(long cnpj){
+    public void deleteByCnpj(long cnpj){
         Lojista lojista = findByCnpj(cnpj);
 
         if(lojista != null){
@@ -59,7 +59,7 @@ public class LojistaService {
         }
     }
 
-    void deleteByEmail(String email){
+    public void deleteByEmail(String email){
         Lojista lojista = findByEmail(email);
 
         if(lojista != null){
@@ -69,7 +69,7 @@ public class LojistaService {
         }
     }
 
-    void updateByCnpj(Lojista entity, long cnpj){
+    public void updateByCnpj(Lojista entity, long cnpj){
         Lojista lojista = findByCnpj(cnpj);
 
         if(lojista != null){
@@ -81,7 +81,7 @@ public class LojistaService {
         }
     }
 
-    void updateByEmail(Lojista entity, String email){
+    public void updateByEmail(Lojista entity, String email){
         Lojista lojista = findByEmail(email);
 
         if(lojista != null){
@@ -93,7 +93,7 @@ public class LojistaService {
         }
     }
 
-    List<Lojista> findByNome(String nome){
+    public List<Lojista> findByNome(String nome){
         return lojistaRepository.findByNome(nome);
     }
 }
