@@ -3,14 +3,12 @@ package BancoDigital.GPay.controller;
 import BancoDigital.GPay.model.Cliente;
 import BancoDigital.GPay.model.Lojista;
 import BancoDigital.GPay.model.Transferencia;
-import BancoDigital.GPay.model.Usuario;
 import BancoDigital.GPay.service.TransferenciaService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.List;
 

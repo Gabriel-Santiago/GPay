@@ -86,5 +86,4 @@ public class TransferenciaService {
         remetente.setSaldo(remetente.getSaldo().subtract(valor));
         destinatario.setSaldo(destinatario.getSaldo().add(valor));
     }
-
 }
