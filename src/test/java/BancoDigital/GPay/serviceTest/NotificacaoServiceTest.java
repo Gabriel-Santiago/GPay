@@ -1,4 +1,4 @@
 package BancoDigital.GPay.serviceTest;
 
-public class NotificacaoServiceTest {
+class NotificacaoServiceTest {
 }
