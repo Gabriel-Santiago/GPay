@@ -14,12 +14,12 @@ public class LojistaController {
 
     LojistaService service;
 
-    @PostMapping
+    @PostMapping("/cnpj")
     public void saveForCnpj(@RequestBody Lojista lojista){
         service.salvarPeloCnpj(lojista, lojista.getCnpj());
     }
 
-    @PostMapping
+    @PostMapping("/email")
     public void salvarForEmail(@RequestBody Lojista lojista){
         service.salvarPeloEmail(lojista, lojista.getEmail());
     }

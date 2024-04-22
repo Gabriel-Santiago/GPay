@@ -14,12 +14,12 @@ public class ClienteController {
 
     ClienteService service;
 
-    @PostMapping
+    @PostMapping("/cpf")
     public void saveForCpf(@RequestBody Cliente cliente){
         service.salvarPeloCpf(cliente, cliente.getCpf());
     }
 
-    @PostMapping
+    @PostMapping("/email")
     public void saveForEmail(@RequestBody Cliente cliente){
         service.salvarPeloEmail(cliente, cliente.getEmail());
     }
