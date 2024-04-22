@@ -15,7 +15,6 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
@@ -191,5 +190,36 @@ class TransferenciaServiceTest {
 
         assertEquals(BigDecimal.valueOf(900), remetente.getSaldo());
         assertEquals(BigDecimal.valueOf(1008), destinatario.getSaldo());
+    }
+
+    @Test
+    void testTransferir(){
+        Usuario remetente = new Usuario();
+        remetente.setSaldo(BigDecimal.valueOf(100));
+
+        Usuario destinatario = new Usuario();
+        destinatario.setSaldo(BigDecimal.valueOf(50));
+
+        String resultado = service.transferir(remetente, destinatario, BigDecimal.valueOf(50));
+        NotificacaoService notificacaoServiceMock = mock(NotificacaoService.class);
+
+        assertEquals("Transferência finalizada com sucesso.\n" + notificacaoServiceMock.enviarNotificacao(destinatario), resultado);
+        assertEquals(BigDecimal.valueOf(50), remetente.getSaldo());
+        assertEquals(BigDecimal.valueOf(100), destinatario.getSaldo());
+    }
+
+    @Test
+    void testTransferirSemSaldo(){
+        Usuario remetente = new Usuario();
+        remetente.setSaldo(BigDecimal.valueOf(100));
+
+        Usuario destinatario = new Usuario();
+        destinatario.setSaldo(BigDecimal.valueOf(50));
+
+        String resultado = service.transferir(remetente, destinatario, BigDecimal.valueOf(150));
+
+        assertEquals("Transferência finalizada sem sucesso. Valor solicitado maior que o saldo", resultado);
+        assertEquals(BigDecimal.valueOf(100), remetente.getSaldo());
+        assertEquals(BigDecimal.valueOf(50), destinatario.getSaldo());
     }
 }
